@@ -62,6 +62,8 @@ case "`uname`" in
     # See https://developer.apple.com/library/mac/qa/qa1170/_index.html
     if [ -z "$JAVA_HOME" ]; then
       if [ -x "/usr/libexec/java_home" ]; then
+        # shellcheck disable=SC2155
+        # shellcheck disable=SC2006
         export JAVA_HOME="`/usr/libexec/java_home`"
       else
         export JAVA_HOME="/Library/Java/Home"
@@ -72,6 +74,7 @@ esac
 
 if [ -z "$JAVA_HOME" ] ; then
   if [ -r /etc/gentoo-release ] ; then
+    # shellcheck disable=SC2006
     JAVA_HOME=`java-config --jre-home`
   fi
 fi
@@ -82,22 +85,29 @@ if [ -z "$M2_HOME" ] ; then
 
   # need this for relative symlinks
   while [ -h "$PRG" ] ; do
+    # shellcheck disable=SC2006
     ls=`ls -ld "$PRG"`
+    # shellcheck disable=SC2006
     link=`expr "$ls" : '.*-> \(.*\)$'`
     if expr "$link" : '/.*' > /dev/null; then
       PRG="$link"
     else
+      # shellcheck disable=SC2006
       PRG="`dirname "$PRG"`/$link"
     fi
   done
 
+  # shellcheck disable=SC2006
   saveddir=`pwd`
 
+  # shellcheck disable=SC2006
   M2_HOME=`dirname "$PRG"`/..
 
   # make it fully qualified
+  # shellcheck disable=SC2006
   M2_HOME=`cd "$M2_HOME" && pwd`
 
+  # shellcheck disable=SC2164
   cd "$saveddir"
   # echo Using m2 at $M2_HOME
 fi
@@ -125,6 +135,7 @@ if [ -z "$JAVA_HOME" ]; then
   if [ -n "$javaExecutable" ] && ! [ "`expr \"$javaExecutable\" : '\([^ ]*\)'`" = "no" ]; then
     # readlink(1) is not available as standard on Solaris 10.
     readLink=`which readlink`
+    # shellcheck disable=SC2046
     if [ ! `expr "$readLink" : '\([^ ]*\)'` = "no" ]; then
       if $darwin ; then
         javaHome="`dirname \"$javaExecutable\"`"
@@ -163,6 +174,7 @@ if [ -z "$JAVA_HOME" ] ; then
   echo "Warning: JAVA_HOME environment variable is not set."
 fi
 
+# shellcheck disable=SC2034
 CLASSWORLDS_LAUNCHER=org.codehaus.plexus.classworlds.launcher.Launcher
 
 # traverses directory structure from process work directory to filesystem root
@@ -184,6 +196,7 @@ find_maven_basedir() {
     fi
     # workaround for JBEAP-8937 (on Solaris 10/Sparc)
     if [ -d "${wdir}" ]; then
+      # shellcheck disable=SC2164
       wdir=`cd "$wdir/.."; pwd`
     fi
     # end of workaround
@@ -302,6 +315,7 @@ fi
 
 # Provide a "standardized" way to retrieve the CLI args that will
 # work with both Windows and non-Windows executions.
+# shellcheck disable=SC2124
 MAVEN_CMD_LINE_ARGS="$MAVEN_CONFIG $@"
 export MAVEN_CMD_LINE_ARGS
 
