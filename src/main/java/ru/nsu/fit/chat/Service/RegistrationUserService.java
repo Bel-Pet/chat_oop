@@ -48,6 +48,7 @@ public class RegistrationUserService {
     }
 
     private User createUser(String username, String password){
+        // CR: maybe add @ALlArgsConstructor or @Builder?
         User user = new User();
         user.setUsername(username);
         user.setPassword(encoder.encode(password));

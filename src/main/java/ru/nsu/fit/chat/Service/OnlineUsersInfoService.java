@@ -33,11 +33,12 @@ public class OnlineUsersInfoService {
     public void userOffline(String username){
         OnlineUserInfo onUserInfo = userInfoRepository.findByUsername(username);
         if(onUserInfo != null){
+            // CR: will users be deleted on application restart?
             userInfoRepository.delete(onUserInfo);
         }
     }
 
-    public OnlineUserInfoDto mapToDto(OnlineUserInfo userInfo){
+    private OnlineUserInfoDto mapToDto(OnlineUserInfo userInfo){
         var dto = new OnlineUserInfoDto();
         dto.setUsername(userInfo.getUsername());
         return dto;

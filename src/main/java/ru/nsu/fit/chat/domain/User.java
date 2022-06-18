@@ -8,6 +8,7 @@ import java.util.Collection;
 import java.util.Objects;
 
 @Entity
+// CR: why not just @Data?
 @Getter
 @Setter
 @ToString
@@ -19,6 +20,7 @@ public class User {
     private Long id;
     private String username;
     private String password;
+    // CR: there's no user deactivation
     private boolean active;
 
     @ManyToMany(fetch = FetchType.EAGER)

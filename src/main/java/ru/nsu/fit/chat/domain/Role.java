@@ -13,6 +13,7 @@ import java.util.Objects;
 @ToString
 @RequiredArgsConstructor
 @Table(name = "roles")
+// CR: we have only one role, no need to have this table
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
